@@ -19,6 +19,11 @@ class Catapult
       this.sling.bodyA = null;
     }
 
+    attach(body)
+    {
+      this.sling.bodyA = body;
+    }
+
     display()
     {
         if(this.sling.bodyA)

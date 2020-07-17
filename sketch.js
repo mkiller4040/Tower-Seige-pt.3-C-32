@@ -25,7 +25,7 @@ function setup()
     box9 = new Box(830,155,35,45);
     box10 = new Box(778,110,35,45);
     box11 = new Box(813,110,35,45);
-    box12 = new Box(796,65,35,45);
+    box12 = new Box(796,57,35,45);
 
     var ball_options = 
     {
@@ -42,7 +42,7 @@ function setup()
 
 function draw()
 {
-    background(0);
+    background(255);
     Engine.update(engine);
 
   stand1.display();
@@ -63,6 +63,7 @@ function draw()
   catapult.display();
 
   ellipseMode(RADIUS);
+  fill("red");
   ellipse(ball.position.x,ball.position.y,20);
 }
 
@@ -74,4 +75,12 @@ function mouseDragged()
 function mouseReleased()
 {
   catapult.fly();
+}
+
+function keyPressed()
+{
+  if(keyCode === 32)
+  {
+    catapult.attach(ball);
+  }  
 }
