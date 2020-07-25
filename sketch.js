@@ -4,6 +4,9 @@ const Bodies = Matter.Bodies;
 
 var engine, world;
 var ball;
+var score = 0;
+var bgColor;
+var celestialBody;
 
 function setup()
 {
@@ -36,14 +39,23 @@ function setup()
     fill("red");    
     ball = Bodies.circle(200,300,20,ball_options);
     World.add(world,ball);
-
+    
     catapult = new Catapult(ball, {x : 100, y : 275});
 }
 
 function draw()
 {
-    background(255);
-    Engine.update(engine);
+
+  getBackgroundImg();
+
+  if(bgColor)
+  {
+  background(bgColor);
+  Engine.update(engine);
+
+  fill("black");
+  text("Use the mouse, by dragging and releasing, to launch the shadow ball towards the blocks and make them become shadow blocks.", 10, 30)
+  text("SCORE : " + score, 900, 30);
 
   stand1.display();
   stand2.display();
@@ -63,8 +75,22 @@ function draw()
   catapult.display();
 
   ellipseMode(RADIUS);
-  fill("red");
+  fill("black");
   ellipse(ball.position.x,ball.position.y,20);
+
+  box1.score();
+  box2.score();
+  box3.score();
+  box4.score();
+  box5.score();
+  box6.score();
+  box7.score();
+  box8.score();
+  box9.score();
+  box10.score();
+  box11.score();
+  box12.score();
+  }
 }
 
 function mouseDragged()
@@ -83,4 +109,23 @@ function keyPressed()
   {
     catapult.attach(ball);
   }  
+}
+
+async function getBackgroundImg()
+{
+  var timeZoneinfo = await fetch("http://worldclockapi.com/api/json/cst/now");
+  var timeZoneinfoJSON = await timeZoneinfo.json();
+  var datetime = timeZoneinfoJSON.currentDateTime;
+  var hour = datetime.slice(11,13);
+
+  if(hour >= 05 && hour <= 19)
+  {
+    bg = "lightblue";
+  } 
+  else 
+  {
+    bg = "darkblue";
+  }
+
+  bgColor = bg;
 }
